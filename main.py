@@ -18,8 +18,8 @@ today = datetime.today()
 date_now = today - timedelta(hours=12)
 
 # load accounts
-def load_screen_names():
-    with open('./users.json') as f:
+def load_screen_names(users_file):
+    with open(users_file) as f:
         return json.load(f)
 
 # comparison the time post and last 12 hours
@@ -27,9 +27,9 @@ def date_comparison(result):
     date_post = datetime.fromtimestamp(result.created_utc)
     return date_post >= date_now
 
-def main():
+def main(users_file='./users.json'):
     # create list of accounts
-    list_users = load_screen_names()['user_to_follow']
+    list_users = load_screen_names(users_file)['user_to_follow']
 
     # create file CSV
     local_filename = "output_" + today.strftime("%Y%m%d_%H%M") + ".csv"
